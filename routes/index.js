@@ -15,8 +15,8 @@ router.get('/api/hello', async function(req, res, next){
   try {
     const result = await axios.get(`http://api.weatherapi.com/v1/current.json?key=${secret}&q=${userIp}`)
 
-  const location = result.data.location.name
-  const temp = Math.floor(result.data.current.temp_c)
+    const location = result.data.location.name
+    const temp = Math.floor(result.data.current.temp_c)
 
   res.send({
     client_ip : userIp,
@@ -25,6 +25,7 @@ router.get('/api/hello', async function(req, res, next){
   });
     
   } catch (error) {
+    res.status(401).send(error)
     console.log(error)
   }
 
