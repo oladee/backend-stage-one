@@ -12,11 +12,11 @@ router.get('/hello', async function(req, res, next){
   const userIp = req.ip
 
   const result = await axios.get(`http://api.weatherapi.com/v1/current.json?key=${secret}&q=${userIp}`)
-  
+
   const location = result.data.location.name
   const temp = Math.floor(result.data.current.temp_c)
 
-  res.json({
+  res.send({
     client_ip : userIp,
     location ,
     greeting : `Hello, ${username}!, the temperature is ${temp} degrees Celcius in ${location} `
