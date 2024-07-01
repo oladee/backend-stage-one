@@ -1,12 +1,14 @@
 var express = require('express');
-const requestIp = require('request-ip')
 const axios = require('axios');
 var router = express.Router();
 
 require('dotenv').config()
 
-/* GET home page. */
-router.get('/hello', async function(req, res, next){
+router.get('/',(req,res,next)=>{
+  res.send('done')
+})
+
+router.get('/api/hello', async function(req, res, next){
   const username = req.query.visitor_name
   const secret = process.env.WEATHER_API_KEY
   const userIp = req.ip
