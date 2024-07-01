@@ -11,9 +11,9 @@ router.get('/',(req,res,next)=>{
 router.get('/api/hello', async function(req, res, next){
   const username = req.query.visitor_name
   const secret = process.env.WEATHER_API_KEY
-  const userIp = req.ip
-
-  const result = await axios.get(`http://api.weatherapi.com/v1/current.json?key=${secret}&q=${userIp}`)
+  const userIp = req.socket.remoteAddress
+  try {
+    const result = await axios.get(`http://api.weatherapi.com/v1/current.json?key=${secret}&q=${userIp}`)
 
   const location = result.data.location.name
   const temp = Math.floor(result.data.current.temp_c)
@@ -23,6 +23,12 @@ router.get('/api/hello', async function(req, res, next){
     location ,
     greeting : `Hello, ${username}!, the temperature is ${temp} degrees Celcius in ${location} `
   });
+    
+  } catch (error) {
+    console.log(error)
+  }
+
+  
 
 });
 
